@@ -15,10 +15,7 @@ import de.empireblocks.empireban.core.platform.PlatformAdapter;
 
 import java.io.IOException;
 
-/**
- * Wires config, database and all managers together. One instance per platform plugin
- * (Spigot/Bungee/Velocity main class owns exactly one of these).
- */
+// wires config, database and all managers together, one instance per platform plugin
 public class EmpireBanCore {
 
     private final PlatformAdapter platform;

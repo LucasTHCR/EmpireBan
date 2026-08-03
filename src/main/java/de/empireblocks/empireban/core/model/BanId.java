@@ -3,12 +3,8 @@ package de.empireblocks.empireban.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A configurable, named punishment reason ("ID") with an ordered list of escalation
- * levels. When a player is punished with this id, the level applied is
- * {@code min(pastPunishmentsWithThisId + 1, levels.size())} - i.e. once every level has
- * been used up, the player keeps getting punished at the last (harshest) level.
- */
+// a named punishment reason with escalation levels - once a player runs out of levels
+// they just keep getting hit with the last (harshest) one
 public class BanId {
 
     private String key;

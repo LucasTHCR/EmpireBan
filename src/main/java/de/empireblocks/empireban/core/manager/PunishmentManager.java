@@ -11,11 +11,8 @@ import de.empireblocks.empireban.core.util.TimeUtil;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * Central place applying/lifting bans, mutes, kicks and warns. Two entry points for
- * applying a punishment: {@link #punishWithId} (uses the configurable ID/level escalation
- * system) and {@link #punishManual} (operator supplies type/duration/reason directly).
- */
+// applies/lifts bans, mutes, kicks and warns - punishWithId() goes through the ID/level
+// escalation system, punishManual() takes type/duration/reason straight from the operator
 public class PunishmentManager {
 
     private final PunishmentRepository punishmentRepository;

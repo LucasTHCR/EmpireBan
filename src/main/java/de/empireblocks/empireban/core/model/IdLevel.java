@@ -1,15 +1,10 @@
 package de.empireblocks.empireban.core.model;
 
-/**
- * One escalation step of a {@link BanId}: how long a punishment lasts once a player
- * has reached this level of prior punishments for the same id, and which punishment
- * type is applied at this level (a level can e.g. warn first, then mute, then ban).
- */
+// one escalation step of a BanId - e.g. a level can warn first, then mute, then ban
 public class IdLevel {
 
     private int level;
-    /** duration in seconds, -1 = permanent */
-    private long durationSeconds;
+    private long durationSeconds; // seconds, -1 = permanent
     private PunishmentType type;
 
     public IdLevel() {

@@ -3,11 +3,7 @@ package de.empireblocks.empireban.core.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Parses/formats durations. The plugin's own config (ids.yml) stores raw seconds
- * (as documented: a day = 86400, a year = 31536000), but user-facing commands accept
- * shorthand like "1d12h", "30m", "perm".
- */
+// ids.yml stores raw seconds, but commands accept shorthand like "1d12h", "30m", "perm"
 public final class TimeUtil {
 
     private static final Pattern SHORTHAND = Pattern.compile("(\\d+)([smhdwMy])");

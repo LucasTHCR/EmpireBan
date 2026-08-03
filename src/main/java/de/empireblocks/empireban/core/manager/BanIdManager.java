@@ -11,10 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Owns the fully configurable "ID system": named, reusable punishment reasons with their
- * own escalation levels, persisted to ids.yml. Referenced from commands via {@code /ban <player> <id>}.
- */
+// owns the configurable ID system - named, reusable punishment reasons with their own
+// escalation levels, persisted to ids.yml, referenced via /ban <player> <id>
 public class BanIdManager {
 
     private final YamlDocument document;

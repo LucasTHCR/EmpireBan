@@ -5,11 +5,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Bridges core punishment/config logic to a concrete platform (Spigot, BungeeCord, Velocity).
- * Core code must never touch platform APIs directly - everything player/network related
- * goes through this interface so the same core jar can run on all three.
- */
+// bridges core punishment/config logic to a concrete platform (Spigot, BungeeCord, Velocity) -
+// core code never touches platform APIs directly, it all goes through here
 public interface PlatformAdapter {
 
     Path getDataFolder();

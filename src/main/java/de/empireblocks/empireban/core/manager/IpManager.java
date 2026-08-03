@@ -16,11 +16,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * IP-side of the ban system: records last-seen IPs, detects alt accounts sharing an IP with
- * an actively banned player (either flags staff or auto-bans, per config), and optionally
- * checks joining IPs against vpnapi.io for VPN/proxy/tor usage.
- */
+// records last-seen IPs, detects alts sharing an IP with a banned player (flags staff or
+// auto-bans, per config), and optionally checks joining IPs against vpnapi.io
 public class IpManager {
 
     public record VpnResult(boolean vpn, boolean proxy, boolean tor, boolean relay) {
@@ -71,7 +68,7 @@ public class IpManager {
         return config.vpnCheckEnabled();
     }
 
-    /** Blocking call - always invoke via {@code PlatformAdapter#runAsync}/{@code supplyAsync}. */
+    // blocking call, always invoke via runAsync/supplyAsync
     public VpnResult checkVpn(String ip) {
         String apiKey = config.vpnApiKey();
         String url = apiKey.isBlank()

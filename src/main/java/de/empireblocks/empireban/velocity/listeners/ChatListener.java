@@ -13,11 +13,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Catches chat sent through the proxy. From 1.19.1 on, clients may send chat signed for the
- * backend server directly; a SignedVelocity + backend companion plugin is required to still
- * intercept those (see the plugin page for setup) - see the project README.
- */
+// catches chat sent through the proxy - signed chat (1.19.1+) needs SignedVelocity plus a
+// backend companion plugin to still be interceptable, see the README for setup
 public class ChatListener {
 
     private final EmpireBanCore core;

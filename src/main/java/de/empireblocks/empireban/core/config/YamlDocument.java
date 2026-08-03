@@ -10,11 +10,9 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * A minimal, platform-independent YAML file wrapper (dotted-path get/set + save) built on
- * SnakeYAML, so the same config/messages/ids code runs unchanged on Spigot, BungeeCord and
- * Velocity instead of depending on Bukkit's YamlConfiguration.
- */
+// minimal YAML wrapper on top of SnakeYAML (dotted-path get/set + save) so the same
+// config/messages/ids code runs unchanged on Spigot, BungeeCord and Velocity instead
+// of depending on Bukkit's YamlConfiguration
 public class YamlDocument {
 
     private final Path file;
@@ -25,10 +23,7 @@ public class YamlDocument {
         this.data = data;
     }
 
-    /**
-     * Loads {@code fileName} from {@code dataFolder}. If it doesn't exist yet, it is copied
-     * from the plugin jar's classpath resource of the same name (if present) before loading.
-     */
+    // copies fileName out of the jar's resources into dataFolder first if it's not there yet
     public static YamlDocument load(Path dataFolder, String fileName, Class<?> resourceHolder) throws IOException {
         Files.createDirectories(dataFolder);
         Path target = dataFolder.resolve(fileName);

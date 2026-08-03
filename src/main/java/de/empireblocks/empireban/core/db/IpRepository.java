@@ -49,11 +49,8 @@ public class IpRepository {
         return result;
     }
 
-    /**
-     * Best-effort name->uuid lookup for offline/unknown players on proxies, which have no
-     * equivalent of Bukkit's OfflinePlayer. Looks at the most recently seen record for that
-     * name across joins.
-     */
+    // best-effort name->uuid lookup for offline players on proxies (no OfflinePlayer there),
+    // just looks at the most recently seen record for that name
     public Optional<UUID> findUuidByName(String name) {
         String sql = "SELECT uuid FROM eb_ips WHERE player_name = ? ORDER BY last_seen DESC LIMIT 1";
         try (Connection connection = db.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {

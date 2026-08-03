@@ -15,10 +15,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Catches unsigned chat. From 1.19.1 on, signed chat messages can't be cancelled here -
- * see config option "signed-chat-bypass" and the companion Spigot chat adapter.
- */
+// catches unsigned chat - signed chat (1.19.1+) can't be cancelled here, that needs
+// signed-chat-bypass + the companion Spigot chat adapter
 public class ChatListener implements Listener {
 
     private final EmpireBanCore core;

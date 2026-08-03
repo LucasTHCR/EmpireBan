@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="icon.png" alt="EmpireBan" width="128" height="128">
+</div>
+
 # EmpireBan
 
 Konfigurierbares Ban/Mute/Kick-System mit ID-Level-System, IP-Handling und VPN-Check für

@@ -12,11 +12,14 @@ import de.empireblocks.empireban.spigot.commands.UnbanCommand;
 import de.empireblocks.empireban.spigot.commands.UnmuteCommand;
 import de.empireblocks.empireban.spigot.listeners.ChatListener;
 import de.empireblocks.empireban.spigot.listeners.PlayerConnectionListener;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
 public class EmpireBanSpigot extends JavaPlugin {
+
+    private static final int BSTATS_ID = 33126;
 
     private EmpireBanCore core;
 
@@ -45,6 +48,12 @@ public class EmpireBanSpigot extends JavaPlugin {
 
         getServer().getScheduler().runTaskTimerAsynchronously(this,
                 () -> core.getPunishmentManager().purgeExpired(), 20L * 60, 20L * 60);
+
+        try {
+            new Metrics(this, BSTATS_ID);
+        } catch (Exception e) {
+            getLogger().warning("bStats could not be initialized: " + e.getMessage());
+        }
 
         getLogger().info("EmpireBan wurde aktiviert.");
     }

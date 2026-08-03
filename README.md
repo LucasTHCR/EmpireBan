@@ -1,117 +1,172 @@
 <div align="center">
   <img src="icon.png" alt="EmpireBan" width="128" height="128">
+
+  <a href="https://dc.gg/paperstream">
+    <img src="https://img.shields.io/badge/Discord-dc.gg%2Fpaperstream-5865F2?style=for-the-badge&logo=discord" alt="Discord" />
+  </a>
 </div>
 
+[![bStats](https://bstats.org/signatures/bukkit/EmpireBan.svg)](https://bstats.org/plugin/bukkit/EmpireBan/33126)
 # EmpireBan
+### *Your server. Your rules.*
 
-Konfigurierbares Ban/Mute/Kick-System mit ID-Level-System, IP-Handling und VPN-Check für
-**Spigot/Paper**, **BungeeCord** und **Velocity** — als eine einzige JAR-Datei
-(`EmpireBan.jar`). Beim Laden erkennt die jeweilige Plattform automatisch nur ihren eigenen
-Einstiegspunkt (Spigot liest `plugin.yml`, BungeeCord `bungee.yml`, Velocity die
-`@Plugin`-annotierte Klasse) — der Rest der JAR wird ignoriert.
+> A configurable ban/mute/kick system with escalating punishment IDs, alt-account detection via IP, and VPN/proxy checking — for **Spigot/Paper**, **BungeeCord**, and **Velocity**, shipped as a single JAR.
 
-> **Wichtig:** Bei Proxy-Betrieb gehört die JAR **nur auf den Proxy** (Velocity oder
-> BungeeCord), **nicht zusätzlich** auf die Spigot-Unterserver. Nur im reinen
-> Standalone-Betrieb ohne Proxy kommt sie auf den Spigot-Server.
+---
 
-## Build
+## ✨ Features
 
-```bash
-mvn clean package
+| Feature | Description |
+|---|---|
+| **Ban/Mute/Kick/Warn** | Full punishment system with per-player history. |
+| **Configurable Escalation IDs** | Define any number of named punishment reasons (`ids.yml`), each with its own escalation levels — 1st offense, 2nd offense, and so on, capped at the harshest configured level once exhausted. |
+| **Alt-Account Detection** | Flags staff or auto-bans players who join from the IP of a currently banned player. |
+| **VPN/Proxy/Tor Check** | Optional lookup via [vpnapi.io](https://vpnapi.io/) on join. |
+| **Chat Filter & Slowmode** | Blacklist words/links and enforce a configurable chat delay, both with bypass permissions. |
+| **MySQL or SQLite** | HikariCP-pooled MySQL, or zero-config SQLite by default. |
+| **Action Logs** | Every punishment and revocation is logged, viewable and clearable in-game. |
+| **Single Cross-Platform JAR** | One `EmpireBan.jar` — each platform only reads its own entry point and ignores the rest. |
+
+---
+
+## 📦 Dependencies
+
+- **Spigot / Paper**, **BungeeCord**, or **Velocity** — `required` *(exactly one, depending on where you run it)*
+- **vpnapi.io** — `optional` — [vpnapi.io](https://vpnapi.io/) *(free tier: up to 100 lookups/day)*
+
+---
+
+## 🔧 How It Works
+
+EmpireBan ships as a single JAR containing all three platform integrations. On load, each platform only reads its own entry point — Spigot reads `plugin.yml`, BungeeCord reads `bungee.yml`, Velocity reads the `@Plugin`-annotated class — and the rest of the JAR is ignored.
+
+> **Proxy setups:** install the JAR **only on the proxy** (Velocity or BungeeCord), **not** on the Spigot backend servers as well. It only belongs on a Spigot server in a pure standalone setup with no proxy in front.
+
+Punishments are organized around **IDs** — named, reusable reasons like `griefing` or `cheating` — each with an ordered list of escalation levels. A player's Nth punishment under a given ID applies that ID's Nth level (capped at the last level once every level has been used), so a first offense might warn, a second mute, and a third ban — fully configurable per ID.
+
+On join, EmpireBan checks the connecting player's IP against currently banned players and, depending on config, either just notifies staff or automatically bans the alt account too. If VPN checking is enabled, it also queries vpnapi.io for VPN/proxy/Tor usage on that IP.
+
+---
+
+## ⚙️ Configuration
+
+<details>
+<summary><b>Click to expand the full config.yml</b></summary>
+
+```yaml
+# EmpireBan - Konfiguration
+# Zeiten in diesem Plugin werden intern immer in Sekunden gespeichert.
+# Beispiele: 1 Tag = 86400, 1 Jahr = 31536000, -1 = Permanent
+
+language: german
+
+database:
+  # sqlite oder mysql
+  type: sqlite
+  mysql:
+    host: localhost
+    port: 3306
+    database: empireban
+    username: root
+    password: ''
+
+ip-handling:
+  # Wenn aktiviert werden Spieler mit einer IP eines gebannten Spielers automatisch gebannt.
+  # Wenn deaktiviert wird nur das Team benachrichtigt (siehe notify-staff & Berechtigung bansys.notify).
+  autoban: false
+  notify-staff: true
+
+vpn-check:
+  enabled: false
+  # Kostenloser Key ab 100 Joins/Tag benötigt: https://vpnapi.io/
+  api-key: ''
+  autoban: false
+
+chat-filter:
+  enabled: true
+  blacklist:
+    - 'discord.gg/'
+    - 'http://'
+    - 'https://'
+
+chat-delay:
+  seconds: 3
+
+geyser:
+  support: true
+
+# Ab Minecraft 1.19.1 signieren Clients Chatnachrichten. BungeeCord kann signierte Nachrichten
+# nicht selbst abfangen/canceln - dafür muss auf jedem Unterserver zusätzlich die beiliegende
+# "BanSystem-SpigotChatAdapter" installiert werden, welche Chat-Events an den Proxy weiterreicht.
+signed-chat-bypass: true
 ```
 
-Ergebnis: `target/EmpireBan.jar`.
+</details>
 
-## Funktionen
+`ids.yml` holds the configurable escalation-ID system, and `messages_german.yml` holds every player- and staff-facing message (color codes via `&`, placeholders). Both are copied into the data folder from the JAR on first start.
 
-- **Ban/Mute/Kick/Warn-System** mit Historie pro Spieler
-- **Konfigurierbares ID-Level-System** (`ids.yml`): beliebig viele benannte Bestrafungsgründe,
-  jede mit eigenen Eskalationsstufen. Level werden automatisch anhand der Anzahl bisheriger
-  Bestrafungen mit derselben ID hochgezählt (1. Verstoß = Level 1, 2. Verstoß = Level 2, ...).
-  Ist das höchste konfigurierte Level erreicht, bleibt es dort.
-- **IP-Handling**: erkennt, wenn ein neu verbindender Spieler dieselbe IP wie ein aktuell
-  gebannter Spieler benutzt. Je nach Konfiguration wird nur das Team benachrichtigt
-  (`bansys.notify`) oder der Alt-Account automatisch mitgebannt.
-- **VPN-Check** über [vpnapi.io](https://vpnapi.io/): erkennt VPN/Proxy/Tor-Verbindungen beim
-  Login und benachrichtigt das Team optional.
-- **Chatfilter** (Blacklist-Wörter/Links) und **Chatverzögerung** (Slowmode) mit
-  Bypass-Rechten.
-- **MySQL- und SQLite-Unterstützung** (HikariCP-Connection-Pool), SQLite ist der
-  Zero-Config-Standard.
-- **Aktionslogs**: jede Bestrafung/Aufhebung wird protokolliert, einsehbar über
-  `/bansys logs show` bzw. löschbar über `/bansys logs clear`.
-- Deutsche Standard-Nachrichten (`messages_german.yml`), inklusive des klassischen
-  Ban-Screens ("Verbindung unterbrochen ... Du kannst Im Forum ein Entbannungsantrag
-  stellen!").
+> **Note:** EmpireBan currently ships with German player-facing messages only (`messages_german.yml`). The structure supports additional `messages_<language>.yml` files, but only German is included out of the box.
 
-## Konfigurationsdateien
+Durations are always stored internally in **seconds**: 1 day = `86400`, 1 year = `31536000`, `-1` = permanent. Commands additionally accept shorthand like `1d12h`, `30m`, `perm`.
 
-Werden beim ersten Start automatisch aus den JAR-Ressourcen ins Datenverzeichnis kopiert:
+---
 
-| Datei | Inhalt |
+## 🔑 Commands & Permissions
+
+| Command | Permission |
 |---|---|
-| `config.yml` | Datenbank (MySQL/SQLite), IP-Handling, VPN-Check, Chatfilter, Chatdelay, Sprache |
-| `ids.yml` | Das konfigurierbare ID-Level-System |
-| `messages_german.yml` | Alle Spieler-/Team-Nachrichten (Platzhalter, Farbcodes mit `&`) |
-
-Zeitangaben sind intern immer in **Sekunden**: 1 Tag = `86400`, 1 Jahr = `31536000`,
-`-1` = permanent. Befehle akzeptieren zusätzlich Kurzformen wie `1d12h`, `30m`, `perm`.
-
-## Befehle & Berechtigungen
-
-| Befehl | Berechtigung |
-|---|---|
-| `/bansystem` (Alias `/bansys`) | `bansys.bansys` |
+| `/bansystem` (alias `/bansys`) | `bansys.bansys` |
 | `/bansystem reload` | `bansys.reload` |
-| `/bansystem ids create <ID> <Type> <OnlyAdmins> <duration> <reason>` | `bansys.ids.create` |
-| `/bansystem ids delete <ID>` | `bansys.ids.delete` |
-| `/bansystem ids edit <ID> add lvl <lvl> <Duration> <Type>` | `bansys.ids.addlvl` |
-| `/bansystem ids edit <ID> remove lvl <lvl>` | `bansys.ids.removelvl` |
-| `/bansystem ids edit <ID> set lvlduration <lvl> <Duration>` | `bansys.ids.setduration` |
-| `/bansystem ids edit <ID> set lvltype <lvl> <Type>` | `bansys.ids.settype` |
-| `/bansystem ids edit <ID> set onlyadmins <True/False>` | `bansys.ids.setonlyadmins` |
-| `/bansystem ids edit <ID> set reason <reason>` | `bansys.ids.setreason` |
-| `/bansystem ids show [ID]` | `bansys.ids.show` |
-| `/bansys logs show [Seite]` | `bansys.logs.show` |
+| `/bansystem ids create <id> <type> <onlyAdmins> <duration> <reason>` | `bansys.ids.create` |
+| `/bansystem ids delete <id>` | `bansys.ids.delete` |
+| `/bansystem ids edit <id> add lvl <lvl> <duration> <type>` | `bansys.ids.addlvl` |
+| `/bansystem ids edit <id> remove lvl <lvl>` | `bansys.ids.removelvl` |
+| `/bansystem ids edit <id> set lvlduration <lvl> <duration>` | `bansys.ids.setduration` |
+| `/bansystem ids edit <id> set lvltype <lvl> <type>` | `bansys.ids.settype` |
+| `/bansystem ids edit <id> set onlyadmins <true/false>` | `bansys.ids.setonlyadmins` |
+| `/bansystem ids edit <id> set reason <reason>` | `bansys.ids.setreason` |
+| `/bansystem ids show [id]` | `bansys.ids.show` |
+| `/bansys logs show [page]` | `bansys.logs.show` |
 | `/bansys logs clear` | `bansys.logs.clear` |
-| `/ban <Spieler> <ID\|Dauer> [Grund]` | `bansys.ban.<ID>` / `bansys.ban.all` / `bansys.ban.admin` |
-| `/unban <Spieler> [Grund]` | `bansys.unban` |
-| `/mute <Spieler> <ID\|Dauer> [Grund]` | `bansys.ban.<ID>` / `bansys.ban.all` |
-| `/unmute <Spieler> [Grund]` | `bansys.unmute` |
-| `/kick <Spieler> [Grund]` | `bansys.kick` (Bypass: `bansys.kick.bypass`) |
-| `/check <Spieler>` | `bansys.check` |
-| `/history <Spieler>` | `bansys.history.show` |
-| `/deletehistory <Spieler>` | `bansys.history.delete` |
-| Team-Benachrichtigungen (Alt-Account/VPN-Erkennung) | `bansys.notify` |
-| Chatfilter-Bypass | `bansys.bypasschatfilter` |
-| Chatdelay-Bypass | `bansys.bypasschatdelay` |
-| Ban-Bypass (Kick beim Bannen unterdrücken) | `bansys.ban.bypass` |
+| `/ban <player> <id\|duration> [reason]` | `bansys.ban.<id>` / `bansys.ban.all` / `bansys.ban.admin` |
+| `/unban <player> [reason]` | `bansys.unban` |
+| `/mute <player> <id\|duration> [reason]` | `bansys.ban.<id>` / `bansys.ban.all` |
+| `/unmute <player> [reason]` | `bansys.unmute` |
+| `/kick <player> [reason]` | `bansys.kick` *(bypass: `bansys.kick.bypass`)* |
+| `/check <player>` | `bansys.check` |
+| `/history <player>` | `bansys.history.show` |
+| `/deletehistory <player>` | `bansys.history.delete` |
+| — | `bansys.notify` *(receives alt-account/VPN staff alerts)* |
+| — | `bansys.bypasschatfilter` |
+| — | `bansys.bypasschatdelay` |
+| — | `bansys.ban.bypass` *(suppress kick-on-ban)* |
 
-## Architektur (für Weiterentwicklung)
+---
 
-Alles unter `de.empireblocks.empireban.core` ist plattformunabhängig (kein Bukkit-/Bungee-/
-Velocity-Import):
+## 🧩 Known Limitations
 
-- `db/` — HikariCP + reines JDBC, dialektbewusstes Schema für MySQL/SQLite
-  (`eb_punishments`, `eb_logs`, `eb_ips`)
-- `manager/` — Geschäftslogik: `PunishmentManager`, `BanIdManager`, `IpManager`,
-  `HistoryManager`, `LogManager`
-- `model/` — `Punishment`, `BanId`, `IdLevel`, `PunishmentType`
-- `config/` — eigener SnakeYAML-Wrapper (`YamlDocument`) statt Bukkit-YAML, damit derselbe
-  Code auf allen drei Plattformen läuft
-- `platform/PlatformAdapter` — Interface, das jede Plattform implementiert (Nachrichten
-  senden, kicken, Berechtigungen prüfen, Scheduler)
+- No GUI menu for the ban list — command-driven only.
+- Signed chat (Minecraft 1.19.1+) can't be intercepted by BungeeCord/Velocity on their own — that needs the companion Spigot chat adapter on each backend server (`config.yml: signed-chat-bypass`), which isn't bundled yet.
+- Geyser support is limited to the `geyser.support` config flag; no native Geyser-specific behavior beyond that.
+- Only German is shipped as a message language (structure supports more, see above).
 
-Die drei Plattform-Pakete (`spigot`, `bungeecord`, `velocity`) enthalten nur dünne Adapter,
-Listener und Befehle, die den gemeinsamen Core aufrufen.
+---
 
-## Bekannte Einschränkungen / offene Punkte
+## 🚀 Getting Started
 
-- Kein GUI-Menü für die Ban-Liste (rein befehlsbasiert)
-- Signierter Chat (ab Minecraft 1.19.1) kann von BungeeCord/Velocity selbst nicht abgefangen
-  werden — dafür wäre ein zusätzlicher Chat-Adapter auf den Unterservern nötig
-  (`config.yml: signed-chat-bypass`), der aktuell noch nicht mitgeliefert wird
-- Kein natives Geyser-spezifisches Verhalten über den reinen `geyser.support`-Config-Flag
-  hinaus
-- Nur Deutsch als Sprachdatei vorhanden (Struktur ist mehrsprachenfähig,
-  `messages_<sprache>.yml`)
+1. Drop `EmpireBan.jar` into your `plugins/` folder — **only on the proxy** (Velocity/BungeeCord) if you run one, otherwise on the Spigot server.
+2. Start the server once to generate `config.yml`, `ids.yml`, and `messages_german.yml`.
+3. Set your database (SQLite by default, or MySQL) and enable VPN checking if you want it.
+4. Reload with `/bansystem reload` — no restart needed.
+
+---
+
+## 👥 Credits
+
+| | |
+|---|---|
+| **LucasTHCR** | Creator & maintainer |
+
+Discord: [dc.gg/paperstream](https://dc.gg/paperstream)
+
+Open source under the MIT License.

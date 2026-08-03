@@ -1,0 +1,97 @@
+name: EmpireBan
+main: de.empireblocks.empireban.spigot.EmpireBanSpigot
+version: '${project.version}'
+api-version: '1.20'
+author: empireblocks
+description: Konfigurierbares Ban/Mute/Kick-System mit ID-Level-System, IP-Handling und VPN-Check.
+
+commands:
+  bansystem:
+    aliases: [bansys]
+    description: Verwaltung des BanSystems.
+    usage: /bansystem <reload|ids|logs>
+  ban:
+    description: Bannt einen Spieler.
+    usage: /ban <Spieler> <ID|Grund> [Dauer]
+  unban:
+    description: Entbannt einen Spieler.
+    usage: /unban <Spieler>
+  mute:
+    description: Muted einen Spieler.
+    usage: /mute <Spieler> <ID|Grund> [Dauer]
+  unmute:
+    description: Entmuted einen Spieler.
+    usage: /unmute <Spieler>
+  kick:
+    description: Kickt einen Spieler.
+    usage: /kick <Spieler> [Grund]
+  check:
+    description: Zeigt den Status eines Spielers an.
+    usage: /check <Spieler>
+  history:
+    description: Zeigt die Bestrafungshistorie eines Spielers an.
+    usage: /history <Spieler>
+  deletehistory:
+    description: Löscht die Bestrafungshistorie eines Spielers.
+    usage: /deletehistory <Spieler>
+
+permissions:
+  bansys.bansys:
+    description: Erlaubt Zugriff auf /bansystem
+    default: op
+  bansys.reload:
+    description: Erlaubt das Neuladen der Konfiguration
+    default: op
+  bansys.ids.create:
+    default: op
+  bansys.ids.delete:
+    default: op
+  bansys.ids.addlvl:
+    default: op
+  bansys.ids.removelvl:
+    default: op
+  bansys.ids.setduration:
+    default: op
+  bansys.ids.settype:
+    default: op
+  bansys.ids.setonlyadmins:
+    default: op
+  bansys.ids.setreason:
+    default: op
+  bansys.ids.show:
+    default: op
+  bansys.logs.show:
+    default: op
+  bansys.logs.clear:
+    default: op
+  bansys.ban.all:
+    description: Erlaubt das Bannen mit jeder ID
+    default: op
+  bansys.ban.admin:
+    description: Erlaubt das Verwenden von Admin-only IDs
+    default: op
+  bansys.unban:
+    default: op
+  bansys.unmute:
+    default: op
+  bansys.check:
+    default: op
+  bansys.history.show:
+    default: op
+  bansys.history.delete:
+    default: op
+  bansys.kick:
+    default: op
+  bansys.kick.admin:
+    default: op
+  bansys.notify:
+    description: Erhält Team-Benachrichtigungen (z.B. Alt-Account erkannt)
+    default: op
+  bansys.kick.bypass:
+    default: false
+  bansys.ban.bypass:
+    default: false
+  bansys.bypasschatfilter:
+    default: op
+  bansys.bypasschatdelay:
+    default: op

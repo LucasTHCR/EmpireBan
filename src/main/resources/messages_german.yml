@@ -1,0 +1,77 @@
+prefix: '&8[&cBanSystem&8] &7'
+
+general:
+  no-permission: '%prefix%&cDu hast keine Berechtigung dafür!'
+  player-not-found: '%prefix%&cDieser Spieler wurde nicht gefunden!'
+  invalid-usage: '%prefix%&cVerwendung: &7%usage%'
+  invalid-time: '%prefix%&cUngültiges Zeitformat! Beispiel: 1d12h, 30m, perm'
+  id-not-found: '%prefix%&cDiese ID existiert nicht!'
+  id-already-exists: '%prefix%&cDiese ID existiert bereits!'
+  reload-success: '%prefix%&aKonfiguration wurde neu geladen!'
+  console-only: '%prefix%&cDieser Befehl kann nur von der Konsole ausgeführt werden!'
+
+ban:
+  success: '%prefix%&a%player% wurde gebannt! &7(Grund: %reason%, Dauer: %duration%)'
+  screen:
+    - '&cVerbindung unterbrochen'
+    - ''
+    - '&c[BanSystem] &cDu wurdest Gesperrt!'
+    - ''
+    - '&bGrund: &e%reason%'
+    - ''
+    - '&bVerbleibende Zeit: &c%duration%'
+    - ''
+    - '&3Du kannst Im Forum ein Entbannungsantrag stellen!'
+  not-banned: '%prefix%&c%player% ist nicht gebannt!'
+  unban-success: '%prefix%&a%player% wurde entbannt!'
+  already-banned: '%prefix%&c%player% ist bereits gebannt!'
+
+mute:
+  success: '%prefix%&a%player% wurde gemuted! &7(Grund: %reason%, Dauer: %duration%)'
+  screen: '%prefix%&cDu bist gemuted! &7(Grund: %reason%, Verbleibend: %duration%)'
+  not-muted: '%prefix%&c%player% ist nicht gemuted!'
+  unmute-success: '%prefix%&a%player% wurde entmuted!'
+  already-muted: '%prefix%&c%player% ist bereits gemuted!'
+
+kick:
+  success: '%prefix%&a%player% wurde gekickt! &7(Grund: %reason%)'
+  screen:
+    - '&cDu wurdest vom Server gekickt!'
+    - ''
+    - '&bGrund: &e%reason%'
+
+check:
+  header: '%prefix%&7--- Status von &e%player% &7---'
+  banned: '&cGebannt &7- Grund: &e%reason% &7- Verbleibend: &e%duration%'
+  muted: '&6Gemuted &7- Grund: &e%reason% &7- Verbleibend: &e%duration%'
+  clean: '&aKeine aktiven Bestrafungen.'
+
+history:
+  header: '%prefix%&7--- Historie von &e%player% &7---'
+  entry: '&7[%date%] &e%type% &7von &e%operator% &7- %reason%'
+  empty: '%prefix%&7%player% hat keine Historie.'
+  deleted: '%prefix%&aHistorie von %player% wurde gelöscht! &7(%amount% Einträge)'
+
+chat:
+  filtered: '%prefix%&cDeine Nachricht enthält nicht erlaubte Inhalte!'
+  delay: '%prefix%&cBitte warte noch %seconds% Sekunden bevor du erneut schreibst!'
+
+ip:
+  alt-detected: '%prefix%&e%player% &7verwendet dieselbe IP wie der gebannte Spieler &e%banned_player%&7!'
+  autobanned: '%prefix%&e%player% &7wurde automatisch gebannt (IP-Match mit &e%banned_player%&7).'
+  vpn-detected: '%prefix%&e%player% &7verbindet sich über eine VPN/Proxy-Verbindung!'
+
+ids:
+  created: '%prefix%&aID &e%id% &awurde erstellt!'
+  deleted: '%prefix%&aID &e%id% &awurde gelöscht!'
+  level-added: '%prefix%&aLevel %level% zu ID &e%id% &ahinzugefügt!'
+  level-removed: '%prefix%&aLevel %level% von ID &e%id% &aentfernt!'
+  updated: '%prefix%&aID &e%id% &awurde aktualisiert!'
+  show-header: '%prefix%&7--- ID: &e%id% &7---'
+  show-line: '&7Typ: &e%type% &7| Nur Admins: &e%only_admins% &7| Grund: &e%reason%'
+  show-level: '&7 - Level %level%: &e%duration% &7(&e%type%&7)'
+
+logs:
+  header: '%prefix%&7--- Logs (Seite %page%) ---'
+  entry: '&7[%date%] &e%actor% &7-> &e%action% &7auf &e%target% &7(%details%)'
+  cleared: '%prefix%&aLogs wurden gelöscht!'

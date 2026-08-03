@@ -1,0 +1,55 @@
+# Konfigurierbares ID-System.
+# Jede ID hat einen Standard-Typ, einen Grund und beliebig viele Level.
+# Level werden anhand der bisherigen Bestrafungen mit dieser ID hochgezählt:
+# Level 1 = erste Bestrafung, Level 2 = zweite, usw. Ist ein Spieler bereits auf dem
+# höchsten konfigurierten Level, wird dieses Level erneut angewendet.
+# Dauer ist in Sekunden angegeben, -1 = Permanent.
+
+ids:
+  griefing:
+    type: BAN
+    only-admins: false
+    reason: 'Griefing'
+    levels:
+      1:
+        duration: 86400
+        type: BAN
+      2:
+        duration: 604800
+        type: BAN
+      3:
+        duration: -1
+        type: BAN
+  beleidigung:
+    type: MUTE
+    only-admins: false
+    reason: 'Beleidigung / Toxisches Verhalten'
+    levels:
+      1:
+        duration: 3600
+        type: MUTE
+      2:
+        duration: 86400
+        type: MUTE
+      3:
+        duration: 604800
+        type: BAN
+  werbung:
+    type: BAN
+    only-admins: false
+    reason: 'Werbung'
+    levels:
+      1:
+        duration: 259200
+        type: BAN
+      2:
+        duration: -1
+        type: BAN
+  cheating:
+    type: BAN
+    only-admins: true
+    reason: 'Verbotene Modifikationen (Cheats)'
+    levels:
+      1:
+        duration: -1
+        type: BAN

@@ -1,0 +1,46 @@
+# EmpireBan - Konfiguration
+# Zeiten in diesem Plugin werden intern immer in Sekunden gespeichert.
+# Beispiele: 1 Tag = 86400, 1 Jahr = 31536000, -1 = Permanent
+
+language: german
+
+database:
+  # sqlite oder mysql
+  type: sqlite
+  mysql:
+    host: localhost
+    port: 3306
+    database: empireban
+    username: root
+    password: ''
+
+ip-handling:
+  # Wenn aktiviert werden Spieler mit einer IP eines gebannten Spielers automatisch gebannt.
+  # Wenn deaktiviert wird nur das Team benachrichtigt (siehe notify-staff & Berechtigung bansys.notify).
+  autoban: false
+  notify-staff: true
+
+vpn-check:
+  enabled: false
+  # Kostenloser Key ab 100 Joins/Tag benötigt: https://vpnapi.io/
+  api-key: ''
+  autoban: false
+
+chat-filter:
+  enabled: true
+  blacklist:
+    - 'discord.gg/'
+    - 'http://'
+    - 'https://'
+
+chat-delay:
+  seconds: 3
+
+geyser:
+  support: true
+
+# Ab Minecraft 1.19.1 signieren Clients Chatnachrichten. BungeeCord kann signierte Nachrichten
+# nicht selbst abfangen/canceln - dafür muss auf jedem Unterserver zusätzlich die beiliegende
+# "BanSystem-SpigotChatAdapter" installiert werden, welche Chat-Events an den Proxy weiterreicht.
+signed-chat-bypass: true
+

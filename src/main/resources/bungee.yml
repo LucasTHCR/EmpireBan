@@ -1,0 +1,5 @@
+name: EmpireBan
+main: de.empireblocks.empireban.bungeecord.EmpireBanBungeeCord
+version: '${project.version}'
+author: empireblocks
+description: Konfigurierbares Ban/Mute/Kick-System mit ID-Level-System, IP-Handling und VPN-Check (Proxy).

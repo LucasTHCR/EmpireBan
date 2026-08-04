@@ -27,7 +27,7 @@ public class BanCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/ban <Spieler> <ID|Dauer> [Grund]"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/ban <player> <ID|duration> [reason]"));
             return true;
         }
 
@@ -71,7 +71,7 @@ public class BanCommand implements CommandExecutor {
                 // The escalation level resolved to a non-ban type (e.g. mute/warn) - still applied above, just inform the operator.
                 CommandUtil.sendMessage(core, sender, "ban.success", Map.of(
                         "player", targetName,
-                        "reason", id.getReason() + " (angewendet als " + result.punishment().getType() + ")",
+                        "reason", id.getReason() + " (applied as " + result.punishment().getType() + ")",
                         "duration", TimeUtil.formatRemaining(result.punishment().remainingMillis())));
             } else {
                 CommandUtil.sendMessage(core, sender, "ban.success", Map.of(
@@ -95,7 +95,7 @@ public class BanCommand implements CommandExecutor {
             CommandUtil.sendMessage(core, sender, "general.id-not-found");
             return true;
         }
-        String reason = args.length > 2 ? String.join(" ", List.of(args).subList(2, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 2 ? String.join(" ", List.of(args).subList(2, args.length)) : "No reason given";
 
         var punishment = core.getPunishmentManager().punishManual(targetUuid, targetName, ip,
                 PunishmentType.BAN, reason, durationSeconds, operatorUuid, operatorName);

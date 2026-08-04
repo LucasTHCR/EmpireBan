@@ -26,7 +26,7 @@ public class CheckCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/check <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/check <player>"));
             return true;
         }
         Optional<OfflinePlayer> targetOpt = CommandUtil.resolvePlayer(args[0]);

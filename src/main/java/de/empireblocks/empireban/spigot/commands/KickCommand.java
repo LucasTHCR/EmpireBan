@@ -24,7 +24,7 @@ public class KickCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/kick <Spieler> [Grund]"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/kick <player> [reason]"));
             return true;
         }
         Player target = org.bukkit.Bukkit.getPlayerExact(args[0]);
@@ -36,7 +36,7 @@ public class KickCommand implements CommandExecutor {
             CommandUtil.sendMessage(core, sender, "general.no-permission");
             return true;
         }
-        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "No reason given";
 
         core.getPunishmentManager().kick(target.getUniqueId(), target.getName(), reason,
                 CommandUtil.senderUuid(sender), sender.getName());

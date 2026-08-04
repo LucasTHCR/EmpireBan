@@ -57,7 +57,7 @@ public class PlayerConnectionListener implements Listener {
                         Punishment altBan = altBans.get(0);
                         if (core.getIpManager().autobanEnabled()) {
                             core.getPunishmentManager().punishManual(uuid, name, ip, PunishmentType.IP_BAN,
-                                    "Alt-Account von gebanntem Spieler " + altBan.getPlayerName(), -1, null, "EmpireBan");
+                                    "Alt account of banned player " + altBan.getPlayerName(), -1, null, "EmpireBan");
                             event.setCancelled(true);
                             event.setCancelReason(TextComponent.fromLegacyText(
                                     buildBanScreen(core.getPunishmentManager().getActiveBan(uuid).orElse(altBan))));

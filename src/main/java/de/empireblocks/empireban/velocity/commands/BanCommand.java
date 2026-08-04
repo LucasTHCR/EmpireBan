@@ -30,7 +30,7 @@ public class BanCommand implements SimpleCommand {
         var sender = invocation.source();
         String[] args = invocation.arguments();
         if (args.length < 2) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/ban <Spieler> <ID|Dauer> [Grund]"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/ban <player> <ID|duration> [reason]"));
             return;
         }
 
@@ -88,7 +88,7 @@ public class BanCommand implements SimpleCommand {
             CommandUtil.sendMessage(core, sender, "general.id-not-found");
             return;
         }
-        String reason = args.length > 2 ? String.join(" ", List.of(args).subList(2, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 2 ? String.join(" ", List.of(args).subList(2, args.length)) : "No reason given";
 
         var punishment = core.getPunishmentManager().punishManual(targetUuid, targetName, ip,
                 PunishmentType.BAN, reason, durationSeconds, operatorUuid, operatorName);

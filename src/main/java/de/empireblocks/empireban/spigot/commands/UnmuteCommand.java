@@ -25,7 +25,7 @@ public class UnmuteCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/unmute <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/unmute <player>"));
             return true;
         }
         Optional<OfflinePlayer> targetOpt = CommandUtil.resolvePlayer(args[0]);
@@ -33,7 +33,7 @@ public class UnmuteCommand implements CommandExecutor {
             CommandUtil.sendMessage(core, sender, "general.player-not-found");
             return true;
         }
-        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "No reason given";
         boolean unmuted = core.getPunishmentManager().unmute(targetOpt.get().getUniqueId(), sender.getName(), reason);
         if (unmuted) {
             CommandUtil.sendMessage(core, sender, "mute.unmute-success", Map.of("player", args[0]));

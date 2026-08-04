@@ -49,6 +49,6 @@ final class CommandUtil {
     }
 
     static String senderName(CommandSource sender) {
-        return sender instanceof Player player ? player.getUsername() : "Konsole";
+        return sender instanceof Player player ? player.getUsername() : "Console";
     }
 }

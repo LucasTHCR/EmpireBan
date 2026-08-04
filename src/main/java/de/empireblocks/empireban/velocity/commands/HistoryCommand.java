@@ -32,7 +32,7 @@ public class HistoryCommand implements SimpleCommand {
             return;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/history <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/history <player>"));
             return;
         }
         Optional<CommandUtil.TargetPlayer> targetOpt = CommandUtil.resolvePlayer(core, proxyServer, args[0]);
@@ -53,7 +53,7 @@ public class HistoryCommand implements SimpleCommand {
             sender.sendMessage(VelocityPlatformAdapter.toComponent(core.getMessagesManager().get("history.entry", Map.of(
                     "date", dateFormat.format(new Date(punishment.getCreatedAt())),
                     "type", punishment.getType().name(),
-                    "operator", punishment.getOperatorName() != null ? punishment.getOperatorName() : "Konsole",
+                    "operator", punishment.getOperatorName() != null ? punishment.getOperatorName() : "Console",
                     "reason", punishment.getReason() != null ? punishment.getReason() : "-"
             ))));
         }

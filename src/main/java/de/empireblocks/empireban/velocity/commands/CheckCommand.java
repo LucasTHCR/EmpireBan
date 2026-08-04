@@ -30,7 +30,7 @@ public class CheckCommand implements SimpleCommand {
             return;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/check <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/check <player>"));
             return;
         }
         Optional<CommandUtil.TargetPlayer> targetOpt = CommandUtil.resolvePlayer(core, proxyServer, args[0]);

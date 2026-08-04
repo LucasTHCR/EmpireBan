@@ -1,0 +1,77 @@
+prefix: '&8[&cBanSystem&8] &7'
+
+general:
+  no-permission: '%prefix%&cYou do not have permission to do that!'
+  player-not-found: '%prefix%&cThat player could not be found!'
+  invalid-usage: '%prefix%&cUsage: &7%usage%'
+  invalid-time: '%prefix%&cInvalid time format! Example: 1d12h, 30m, perm'
+  id-not-found: '%prefix%&cThis ID does not exist!'
+  id-already-exists: '%prefix%&cThis ID already exists!'
+  reload-success: '%prefix%&aConfiguration reloaded!'
+  console-only: '%prefix%&cThis command can only be run from the console!'
+
+ban:
+  success: '%prefix%&a%player% has been banned! &7(Reason: %reason%, Duration: %duration%)'
+  screen:
+    - '&cConnection lost'
+    - ''
+    - '&c[BanSystem] &cYou have been banned!'
+    - ''
+    - '&bReason: &e%reason%'
+    - ''
+    - '&bTime remaining: &c%duration%'
+    - ''
+    - '&3You can appeal your ban on our forum!'
+  not-banned: '%prefix%&c%player% is not banned!'
+  unban-success: '%prefix%&a%player% has been unbanned!'
+  already-banned: '%prefix%&c%player% is already banned!'
+
+mute:
+  success: '%prefix%&a%player% has been muted! &7(Reason: %reason%, Duration: %duration%)'
+  screen: '%prefix%&cYou are muted! &7(Reason: %reason%, Remaining: %duration%)'
+  not-muted: '%prefix%&c%player% is not muted!'
+  unmute-success: '%prefix%&a%player% has been unmuted!'
+  already-muted: '%prefix%&c%player% is already muted!'
+
+kick:
+  success: '%prefix%&a%player% has been kicked! &7(Reason: %reason%)'
+  screen:
+    - '&cYou have been kicked from the server!'
+    - ''
+    - '&bReason: &e%reason%'
+
+check:
+  header: '%prefix%&7--- Status of &e%player% &7---'
+  banned: '&cBanned &7- Reason: &e%reason% &7- Remaining: &e%duration%'
+  muted: '&6Muted &7- Reason: &e%reason% &7- Remaining: &e%duration%'
+  clean: '&aNo active punishments.'
+
+history:
+  header: '%prefix%&7--- History of &e%player% &7---'
+  entry: '&7[%date%] &e%type% &7by &e%operator% &7- %reason%'
+  empty: '%prefix%&7%player% has no history.'
+  deleted: '%prefix%&aHistory of %player% has been deleted! &7(%amount% entries)'
+
+chat:
+  filtered: '%prefix%&cYour message contains content that is not allowed!'
+  delay: '%prefix%&cPlease wait %seconds% more seconds before sending another message!'
+
+ip:
+  alt-detected: '%prefix%&e%player% &7is using the same IP as banned player &e%banned_player%&7!'
+  autobanned: '%prefix%&e%player% &7was automatically banned (IP match with &e%banned_player%&7).'
+  vpn-detected: '%prefix%&e%player% &7is connecting through a VPN/proxy!'
+
+ids:
+  created: '%prefix%&aID &e%id% &ahas been created!'
+  deleted: '%prefix%&aID &e%id% &ahas been deleted!'
+  level-added: '%prefix%&aLevel %level% added to ID &e%id%&a!'
+  level-removed: '%prefix%&aLevel %level% removed from ID &e%id%&a!'
+  updated: '%prefix%&aID &e%id% &ahas been updated!'
+  show-header: '%prefix%&7--- ID: &e%id% &7---'
+  show-line: '&7Type: &e%type% &7| Admins only: &e%only_admins% &7| Reason: &e%reason%'
+  show-level: '&7 - Level %level%: &e%duration% &7(&e%type%&7)'
+
+logs:
+  header: '%prefix%&7--- Logs (Page %page%) ---'
+  entry: '&7[%date%] &e%actor% &7-> &e%action% &7on &e%target% &7(%details%)'
+  cleared: '%prefix%&aLogs have been cleared!'

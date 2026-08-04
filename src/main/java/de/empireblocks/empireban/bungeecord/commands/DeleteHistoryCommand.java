@@ -23,7 +23,7 @@ public class DeleteHistoryCommand extends Command {
             return;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/deletehistory <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/deletehistory <player>"));
             return;
         }
         Optional<CommandUtil.TargetPlayer> targetOpt = CommandUtil.resolvePlayer(core, args[0]);

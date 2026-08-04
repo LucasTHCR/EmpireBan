@@ -26,7 +26,7 @@ public class EmpireBanBungeeCord extends Plugin {
         try {
             this.core = new EmpireBanCore(new BungeeCordPlatformAdapter(this), EmpireBanBungeeCord.class);
         } catch (IOException e) {
-            getLogger().severe("Konnte EmpireBan nicht initialisieren: " + e.getMessage());
+            getLogger().severe("Could not initialize EmpireBan: " + e.getMessage());
             return;
         }
 

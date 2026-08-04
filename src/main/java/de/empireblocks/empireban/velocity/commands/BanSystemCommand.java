@@ -61,13 +61,13 @@ public class BanSystemCommand implements SimpleCommand {
             core.reload();
             CommandUtil.sendMessage(core, sender, "general.reload-success");
         } catch (Exception e) {
-            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cFehler beim Neuladen: " + e.getMessage()));
+            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cError while reloading: " + e.getMessage()));
         }
     }
 
     private void handleIds(CommandSource sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids <create|delete|edit|show>"));
+            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids <create|delete|edit|show>"));
             return;
         }
         BanIdManager manager = core.getBanIdManager();
@@ -79,7 +79,7 @@ public class BanSystemCommand implements SimpleCommand {
                         return;
                     }
                     if (args.length < 6) {
-                        sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids create <ID> <Type> <OnlyAdmins> <duration> <reason>"));
+                        sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids create <ID> <Type> <OnlyAdmins> <duration> <reason>"));
                         return;
                     }
                     if (manager.get(args[2]).isPresent()) {
@@ -99,7 +99,7 @@ public class BanSystemCommand implements SimpleCommand {
                         return;
                     }
                     if (args.length < 3) {
-                        sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids delete <ID>"));
+                        sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids delete <ID>"));
                         return;
                     }
                     if (manager.delete(args[2])) {
@@ -122,12 +122,12 @@ public class BanSystemCommand implements SimpleCommand {
                     showId(sender, args[2]);
                 }
                 case "edit" -> handleIdsEdit(sender, args);
-                default -> sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids <create|delete|edit|show>"));
+                default -> sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids <create|delete|edit|show>"));
             }
         } catch (IllegalArgumentException e) {
             sender.sendMessage(VelocityPlatformAdapter.toComponent("§c" + e.getMessage()));
         } catch (Exception e) {
-            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cFehler: " + e.getMessage()));
+            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cError: " + e.getMessage()));
         }
     }
 
@@ -153,7 +153,7 @@ public class BanSystemCommand implements SimpleCommand {
 
     private void handleIdsEdit(CommandSource sender, String[] args) throws Exception {
         if (args.length < 5) {
-            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids edit <ID> <add|remove|set> ..."));
+            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids edit <ID> <add|remove|set> ..."));
             return;
         }
         String id = args[2];
@@ -170,7 +170,7 @@ public class BanSystemCommand implements SimpleCommand {
                 return;
             }
             if (args.length < 8) {
-                sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids edit <ID> add lvl <lvl> <Duration> <Type>"));
+                sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids edit <ID> add lvl <lvl> <Duration> <Type>"));
                 return;
             }
             int level = Integer.parseInt(args[5]);
@@ -187,7 +187,7 @@ public class BanSystemCommand implements SimpleCommand {
                 return;
             }
             if (args.length < 6) {
-                sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansystem ids edit <ID> remove lvl <lvl>"));
+                sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansystem ids edit <ID> remove lvl <lvl>"));
                 return;
             }
             int level = Integer.parseInt(args[5]);
@@ -231,7 +231,7 @@ public class BanSystemCommand implements SimpleCommand {
                     manager.setReason(id, String.join(" ", List.of(args).subList(5, args.length)));
                     CommandUtil.sendMessage(core, sender, "ids.updated", Map.of("id", id));
                 }
-                default -> sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUnbekanntes Feld: " + field));
+                default -> sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUnknown field: " + field));
             }
         }
     }
@@ -240,13 +240,13 @@ public class BanSystemCommand implements SimpleCommand {
         if (!sender.hasPermission(permission)) {
             CommandUtil.sendMessage(core, sender, "general.no-permission");
         } else {
-            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: " + usage));
+            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: " + usage));
         }
     }
 
     private void handleLogs(CommandSource sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansys logs <show|clear>"));
+            sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansys logs <show|clear>"));
             return;
         }
         switch (args[1].toLowerCase()) {
@@ -261,7 +261,7 @@ public class BanSystemCommand implements SimpleCommand {
                 for (LogRepository.LogEntry entry : entries) {
                     sender.sendMessage(VelocityPlatformAdapter.toComponent(core.getMessagesManager().get("logs.entry", Map.of(
                             "date", dateFormat.format(new Date(entry.createdAt())),
-                            "actor", entry.actorName() != null ? entry.actorName() : "Konsole",
+                            "actor", entry.actorName() != null ? entry.actorName() : "Console",
                             "action", entry.action(),
                             "target", entry.targetName() != null ? entry.targetName() : "-",
                             "details", entry.details() != null ? entry.details() : "-"
@@ -276,7 +276,7 @@ public class BanSystemCommand implements SimpleCommand {
                 core.getLogManager().clear();
                 CommandUtil.sendMessage(core, sender, "logs.cleared");
             }
-            default -> sender.sendMessage(VelocityPlatformAdapter.toComponent("§cVerwendung: /bansys logs <show|clear>"));
+            default -> sender.sendMessage(VelocityPlatformAdapter.toComponent("§cUsage: /bansys logs <show|clear>"));
         }
     }
 

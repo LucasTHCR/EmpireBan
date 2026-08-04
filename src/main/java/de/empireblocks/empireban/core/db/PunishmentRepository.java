@@ -45,7 +45,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Bestrafung nicht speichern", e);
+            throw new IllegalStateException("Could not save punishment", e);
         }
         return -1;
     }
@@ -61,7 +61,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Bestrafung nicht laden", e);
+            throw new IllegalStateException("Could not load punishment", e);
         }
         return Optional.empty();
     }
@@ -76,7 +76,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Bann nicht laden", e);
+            throw new IllegalStateException("Could not load ban", e);
         }
         return Optional.empty();
     }
@@ -91,7 +91,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte IP-Bann nicht laden", e);
+            throw new IllegalStateException("Could not load IP ban", e);
         }
         return Optional.empty();
     }
@@ -109,7 +109,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte IP-Bans nicht laden", e);
+            throw new IllegalStateException("Could not load IP bans", e);
         }
         return result;
     }
@@ -125,7 +125,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Anzahl nicht laden", e);
+            throw new IllegalStateException("Could not load count", e);
         }
         return 0;
     }
@@ -139,7 +139,7 @@ public class PunishmentRepository {
             statement.setLong(4, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Bestrafung nicht aufheben", e);
+            throw new IllegalStateException("Could not lift punishment", e);
         }
     }
 
@@ -149,7 +149,7 @@ public class PunishmentRepository {
             statement.setLong(1, System.currentTimeMillis());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte abgelaufene Bestrafungen nicht bereinigen", e);
+            throw new IllegalStateException("Could not clean up expired punishments", e);
         }
     }
 
@@ -164,7 +164,7 @@ public class PunishmentRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Historie nicht laden", e);
+            throw new IllegalStateException("Could not load history", e);
         }
         return result;
     }
@@ -175,7 +175,7 @@ public class PunishmentRepository {
             statement.setString(1, uuid.toString());
             return statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Historie nicht löschen", e);
+            throw new IllegalStateException("Could not delete history", e);
         }
     }
 

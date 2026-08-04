@@ -29,7 +29,7 @@ public class IpRepository {
             statement.setLong(4, System.currentTimeMillis());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte IP nicht speichern", e);
+            throw new IllegalStateException("Could not save IP", e);
         }
     }
 
@@ -44,7 +44,7 @@ public class IpRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte IPs nicht laden", e);
+            throw new IllegalStateException("Could not load IPs", e);
         }
         return result;
     }
@@ -61,7 +61,7 @@ public class IpRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Spieler nicht nachschlagen", e);
+            throw new IllegalStateException("Could not look up player", e);
         }
         return Optional.empty();
     }
@@ -76,7 +76,7 @@ public class IpRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte IP nicht laden", e);
+            throw new IllegalStateException("Could not load IP", e);
         }
         return Optional.empty();
     }

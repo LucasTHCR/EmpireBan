@@ -41,7 +41,7 @@ public final class TimeUtil {
             };
         }
         if (!matchedAny) {
-            throw new IllegalArgumentException("Ungültiges Zeitformat: " + input);
+            throw new IllegalArgumentException("Invalid time format: " + input);
         }
         return totalSeconds;
     }

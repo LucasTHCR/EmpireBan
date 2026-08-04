@@ -55,13 +55,13 @@ public class BanSystemCommand implements CommandExecutor {
             core.reload();
             CommandUtil.sendMessage(core, sender, "general.reload-success");
         } catch (Exception e) {
-            sender.sendMessage("§cFehler beim Neuladen: " + e.getMessage());
+            sender.sendMessage("§cError while reloading: " + e.getMessage());
         }
     }
 
     private void handleIds(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("§cVerwendung: /bansystem ids <create|delete|edit|show>");
+            sender.sendMessage("§cUsage: /bansystem ids <create|delete|edit|show>");
             return;
         }
         BanIdManager manager = core.getBanIdManager();
@@ -73,7 +73,7 @@ public class BanSystemCommand implements CommandExecutor {
                         return;
                     }
                     if (args.length < 6) {
-                        sender.sendMessage("§cVerwendung: /bansystem ids create <ID> <Type> <OnlyAdmins> <duration> <reason>");
+                        sender.sendMessage("§cUsage: /bansystem ids create <ID> <Type> <OnlyAdmins> <duration> <reason>");
                         return;
                     }
                     if (manager.get(args[2]).isPresent()) {
@@ -93,7 +93,7 @@ public class BanSystemCommand implements CommandExecutor {
                         return;
                     }
                     if (args.length < 3) {
-                        sender.sendMessage("§cVerwendung: /bansystem ids delete <ID>");
+                        sender.sendMessage("§cUsage: /bansystem ids delete <ID>");
                         return;
                     }
                     if (manager.delete(args[2])) {
@@ -116,12 +116,12 @@ public class BanSystemCommand implements CommandExecutor {
                     showId(sender, args[2]);
                 }
                 case "edit" -> handleIdsEdit(sender, args);
-                default -> sender.sendMessage("§cVerwendung: /bansystem ids <create|delete|edit|show>");
+                default -> sender.sendMessage("§cUsage: /bansystem ids <create|delete|edit|show>");
             }
         } catch (IllegalArgumentException e) {
             sender.sendMessage("§c" + e.getMessage());
         } catch (Exception e) {
-            sender.sendMessage("§cFehler: " + e.getMessage());
+            sender.sendMessage("§cError: " + e.getMessage());
         }
     }
 
@@ -153,7 +153,7 @@ public class BanSystemCommand implements CommandExecutor {
     // /bansystem ids edit <ID> set reason <reason>
     private void handleIdsEdit(CommandSender sender, String[] args) throws Exception {
         if (args.length < 5) {
-            sender.sendMessage("§cVerwendung: /bansystem ids edit <ID> <add|remove|set> ...");
+            sender.sendMessage("§cUsage: /bansystem ids edit <ID> <add|remove|set> ...");
             return;
         }
         String id = args[2];
@@ -170,7 +170,7 @@ public class BanSystemCommand implements CommandExecutor {
                 return;
             }
             if (args.length < 8) {
-                sender.sendMessage("§cVerwendung: /bansystem ids edit <ID> add lvl <lvl> <Duration> <Type>");
+                sender.sendMessage("§cUsage: /bansystem ids edit <ID> add lvl <lvl> <Duration> <Type>");
                 return;
             }
             int level = Integer.parseInt(args[5]);
@@ -187,7 +187,7 @@ public class BanSystemCommand implements CommandExecutor {
                 return;
             }
             if (args.length < 6) {
-                sender.sendMessage("§cVerwendung: /bansystem ids edit <ID> remove lvl <lvl>");
+                sender.sendMessage("§cUsage: /bansystem ids edit <ID> remove lvl <lvl>");
                 return;
             }
             int level = Integer.parseInt(args[5]);
@@ -231,7 +231,7 @@ public class BanSystemCommand implements CommandExecutor {
                     manager.setReason(id, String.join(" ", List.of(args).subList(5, args.length)));
                     CommandUtil.sendMessage(core, sender, "ids.updated", Map.of("id", id));
                 }
-                default -> sender.sendMessage("§cUnbekanntes Feld: " + field);
+                default -> sender.sendMessage("§cUnknown field: " + field);
             }
         }
     }
@@ -240,13 +240,13 @@ public class BanSystemCommand implements CommandExecutor {
         if (!sender.hasPermission(permission)) {
             CommandUtil.sendMessage(core, sender, "general.no-permission");
         } else {
-            sender.sendMessage("§cVerwendung: " + usage);
+            sender.sendMessage("§cUsage: " + usage);
         }
     }
 
     private void handleLogs(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("§cVerwendung: /bansys logs <show|clear>");
+            sender.sendMessage("§cUsage: /bansys logs <show|clear>");
             return;
         }
         switch (args[1].toLowerCase()) {
@@ -261,7 +261,7 @@ public class BanSystemCommand implements CommandExecutor {
                 for (LogRepository.LogEntry entry : entries) {
                     sender.sendMessage(core.getMessagesManager().get("logs.entry", Map.of(
                             "date", dateFormat.format(new Date(entry.createdAt())),
-                            "actor", entry.actorName() != null ? entry.actorName() : "Konsole",
+                            "actor", entry.actorName() != null ? entry.actorName() : "Console",
                             "action", entry.action(),
                             "target", entry.targetName() != null ? entry.targetName() : "-",
                             "details", entry.details() != null ? entry.details() : "-"
@@ -276,7 +276,7 @@ public class BanSystemCommand implements CommandExecutor {
                 core.getLogManager().clear();
                 CommandUtil.sendMessage(core, sender, "logs.cleared");
             }
-            default -> sender.sendMessage("§cVerwendung: /bansys logs <show|clear>");
+            default -> sender.sendMessage("§cUsage: /bansys logs <show|clear>");
         }
     }
 

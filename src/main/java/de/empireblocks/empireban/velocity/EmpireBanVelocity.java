@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
         id = "empireban",
         name = "EmpireBan",
         version = "1.0.0",
-        description = "Konfigurierbares Ban/Mute/Kick-System mit ID-Level-System, IP-Handling und VPN-Check (Proxy).",
+        description = "Configurable ban/mute/kick system with escalating punishment IDs, IP handling, and VPN check (proxy).",
         authors = {"empireblocks"}
 )
 public class EmpireBanVelocity {
@@ -52,7 +52,7 @@ public class EmpireBanVelocity {
                     new VelocityPlatformAdapter(this, proxyServer, dataDirectory, logger),
                     EmpireBanVelocity.class);
         } catch (IOException e) {
-            logger.error("Konnte EmpireBan nicht initialisieren", e);
+            logger.error("Could not initialize EmpireBan", e);
             return;
         }
 

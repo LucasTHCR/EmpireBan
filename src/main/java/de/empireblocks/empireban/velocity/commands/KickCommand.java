@@ -29,7 +29,7 @@ public class KickCommand implements SimpleCommand {
             return;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/kick <Spieler> [Grund]"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/kick <player> [reason]"));
             return;
         }
         Optional<Player> targetOpt = proxyServer.getPlayer(args[0]);
@@ -42,7 +42,7 @@ public class KickCommand implements SimpleCommand {
             CommandUtil.sendMessage(core, sender, "general.no-permission");
             return;
         }
-        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "No reason given";
 
         core.getPunishmentManager().kick(target.getUniqueId(), target.getUsername(), reason,
                 CommandUtil.senderUuid(sender), CommandUtil.senderName(sender));

@@ -27,7 +27,7 @@ public class UnbanCommand implements SimpleCommand {
             return;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/unban <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/unban <player>"));
             return;
         }
         Optional<CommandUtil.TargetPlayer> targetOpt = CommandUtil.resolvePlayer(core, proxyServer, args[0]);
@@ -35,7 +35,7 @@ public class UnbanCommand implements SimpleCommand {
             CommandUtil.sendMessage(core, sender, "general.player-not-found");
             return;
         }
-        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "No reason given";
         boolean unbanned = core.getPunishmentManager().unban(targetOpt.get().uuid(), CommandUtil.senderName(sender), reason);
         if (unbanned) {
             CommandUtil.sendMessage(core, sender, "ban.unban-success", Map.of("player", args[0]));

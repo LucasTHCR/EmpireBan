@@ -28,7 +28,7 @@ public class EmpireBanSpigot extends JavaPlugin {
         try {
             this.core = new EmpireBanCore(new SpigotPlatformAdapter(this), EmpireBanSpigot.class);
         } catch (IOException e) {
-            getLogger().severe("Konnte EmpireBan nicht initialisieren: " + e.getMessage());
+            getLogger().severe("Could not initialize EmpireBan: " + e.getMessage());
             getServer().getPluginManager().disablePlugin(this);
             return;
         }

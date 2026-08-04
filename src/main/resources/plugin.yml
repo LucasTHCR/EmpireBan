@@ -3,44 +3,44 @@ main: de.empireblocks.empireban.spigot.EmpireBanSpigot
 version: '${project.version}'
 api-version: '1.20'
 author: empireblocks
-description: Konfigurierbares Ban/Mute/Kick-System mit ID-Level-System, IP-Handling und VPN-Check.
+description: Configurable ban/mute/kick system with escalating punishment IDs, IP handling, and VPN check.
 
 commands:
   bansystem:
     aliases: [bansys]
-    description: Verwaltung des BanSystems.
+    description: Manage the ban system.
     usage: /bansystem <reload|ids|logs>
   ban:
-    description: Bannt einen Spieler.
-    usage: /ban <Spieler> <ID|Grund> [Dauer]
+    description: Ban a player.
+    usage: /ban <player> <ID|reason> [duration]
   unban:
-    description: Entbannt einen Spieler.
-    usage: /unban <Spieler>
+    description: Unban a player.
+    usage: /unban <player>
   mute:
-    description: Muted einen Spieler.
-    usage: /mute <Spieler> <ID|Grund> [Dauer]
+    description: Mute a player.
+    usage: /mute <player> <ID|reason> [duration]
   unmute:
-    description: Entmuted einen Spieler.
-    usage: /unmute <Spieler>
+    description: Unmute a player.
+    usage: /unmute <player>
   kick:
-    description: Kickt einen Spieler.
-    usage: /kick <Spieler> [Grund]
+    description: Kick a player.
+    usage: /kick <player> [reason]
   check:
-    description: Zeigt den Status eines Spielers an.
-    usage: /check <Spieler>
+    description: Show a player's status.
+    usage: /check <player>
   history:
-    description: Zeigt die Bestrafungshistorie eines Spielers an.
-    usage: /history <Spieler>
+    description: Show a player's punishment history.
+    usage: /history <player>
   deletehistory:
-    description: Löscht die Bestrafungshistorie eines Spielers.
-    usage: /deletehistory <Spieler>
+    description: Delete a player's punishment history.
+    usage: /deletehistory <player>
 
 permissions:
   bansys.bansys:
-    description: Erlaubt Zugriff auf /bansystem
+    description: Grants access to /bansystem
     default: op
   bansys.reload:
-    description: Erlaubt das Neuladen der Konfiguration
+    description: Allows reloading the configuration
     default: op
   bansys.ids.create:
     default: op
@@ -65,10 +65,10 @@ permissions:
   bansys.logs.clear:
     default: op
   bansys.ban.all:
-    description: Erlaubt das Bannen mit jeder ID
+    description: Allows banning with any ID
     default: op
   bansys.ban.admin:
-    description: Erlaubt das Verwenden von Admin-only IDs
+    description: Allows using admin-only IDs
     default: op
   bansys.unban:
     default: op
@@ -85,7 +85,7 @@ permissions:
   bansys.kick.admin:
     default: op
   bansys.notify:
-    description: Erhält Team-Benachrichtigungen (z.B. Alt-Account erkannt)
+    description: Receives staff notifications (e.g. alt account detected)
     default: op
   bansys.kick.bypass:
     default: false

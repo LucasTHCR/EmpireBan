@@ -24,7 +24,7 @@ public class DeleteHistoryCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/deletehistory <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/deletehistory <player>"));
             return true;
         }
         Optional<OfflinePlayer> targetOpt = CommandUtil.resolvePlayer(args[0]);

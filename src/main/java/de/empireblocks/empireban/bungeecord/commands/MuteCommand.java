@@ -26,7 +26,7 @@ public class MuteCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/mute <Spieler> <ID|Dauer> [Grund]"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/mute <player> <ID|duration> [reason]"));
             return;
         }
 
@@ -74,7 +74,7 @@ public class MuteCommand extends Command {
             CommandUtil.sendMessage(core, sender, "general.id-not-found");
             return;
         }
-        String reason = args.length > 2 ? String.join(" ", List.of(args).subList(2, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 2 ? String.join(" ", List.of(args).subList(2, args.length)) : "No reason given";
         var punishment = core.getPunishmentManager().punishManual(targetUuid, targetName, CommandUtil.currentIp(target),
                 PunishmentType.MUTE, reason, durationSeconds, operatorUuid, sender.getName());
         CommandUtil.sendMessage(core, sender, "mute.success", Map.of(

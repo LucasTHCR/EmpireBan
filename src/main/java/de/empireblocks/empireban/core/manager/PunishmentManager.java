@@ -31,11 +31,11 @@ public class PunishmentManager {
     public PunishResult punishWithId(UUID targetUuid, String targetName, String ip, String idKey,
                                       UUID operatorUuid, String operatorName) {
         BanId banId = banIdManager.get(idKey)
-                .orElseThrow(() -> new IllegalArgumentException("ID '" + idKey + "' existiert nicht"));
+                .orElseThrow(() -> new IllegalArgumentException("ID '" + idKey + "' does not exist"));
         int priorCount = punishmentRepository.countByUuidAndIdKey(targetUuid, banId.getKey());
         IdLevel level = banId.getLevelFor(priorCount);
         if (level == null) {
-            throw new IllegalStateException("ID '" + idKey + "' hat keine konfigurierten Level");
+            throw new IllegalStateException("ID '" + idKey + "' has no configured levels");
         }
 
         Punishment punishment = new Punishment();

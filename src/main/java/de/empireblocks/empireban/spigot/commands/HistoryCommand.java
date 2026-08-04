@@ -29,7 +29,7 @@ public class HistoryCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/history <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/history <player>"));
             return true;
         }
         Optional<OfflinePlayer> targetOpt = CommandUtil.resolvePlayer(args[0]);
@@ -50,7 +50,7 @@ public class HistoryCommand implements CommandExecutor {
             sender.sendMessage(core.getMessagesManager().get("history.entry", Map.of(
                     "date", dateFormat.format(new Date(punishment.getCreatedAt())),
                     "type", punishment.getType().name(),
-                    "operator", punishment.getOperatorName() != null ? punishment.getOperatorName() : "Konsole",
+                    "operator", punishment.getOperatorName() != null ? punishment.getOperatorName() : "Console",
                     "reason", punishment.getReason() != null ? punishment.getReason() : "-"
             )));
         }

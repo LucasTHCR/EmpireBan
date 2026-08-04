@@ -90,7 +90,7 @@ public class ConfigManager {
     }
 
     public String defaultLanguage() {
-        return getString("language", "german");
+        return getString("language", "english");
     }
 
     /** BungeeCord-only: whether signed (1.19.1+) chat messages should still be caught via the companion Spigot chat adapter. */

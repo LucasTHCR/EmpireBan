@@ -97,7 +97,7 @@ public class DatabaseManager implements AutoCloseable {
             statement.execute("CREATE INDEX IF NOT EXISTS idx_eb_punishments_ip ON eb_punishments(ip)");
             statement.execute("CREATE INDEX IF NOT EXISTS idx_eb_ips_ip ON eb_ips(ip)");
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Datenbank-Schema nicht anlegen", e);
+            throw new IllegalStateException("Could not create database schema", e);
         }
     }
 

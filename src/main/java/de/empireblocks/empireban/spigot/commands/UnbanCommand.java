@@ -25,7 +25,7 @@ public class UnbanCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/unban <Spieler>"));
+            CommandUtil.sendMessage(core, sender, "general.invalid-usage", Map.of("usage", "/unban <player>"));
             return true;
         }
         Optional<OfflinePlayer> targetOpt = CommandUtil.resolvePlayer(args[0]);
@@ -33,7 +33,7 @@ public class UnbanCommand implements CommandExecutor {
             CommandUtil.sendMessage(core, sender, "general.player-not-found");
             return true;
         }
-        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "Kein Grund angegeben";
+        String reason = args.length > 1 ? String.join(" ", List.of(args).subList(1, args.length)) : "No reason given";
         boolean unbanned = core.getPunishmentManager().unban(targetOpt.get().getUniqueId(), sender.getName(), reason);
         if (unbanned) {
             CommandUtil.sendMessage(core, sender, "ban.unban-success", Map.of("player", args[0]));

@@ -46,7 +46,7 @@ public class PlayerConnectionListener implements Listener {
                 if (core.getIpManager().autobanEnabled()) {
                     core.getPunishmentManager().punishManual(uuid, event.getName(), ip,
                             de.empireblocks.empireban.core.model.PunishmentType.IP_BAN,
-                            "Alt-Account von gebanntem Spieler " + altBan.getPlayerName(), -1,
+                            "Alt account of banned player " + altBan.getPlayerName(), -1,
                             null, "EmpireBan");
                     event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED,
                             buildBanScreen(core.getPunishmentManager().getActiveBan(uuid).orElse(altBan)));

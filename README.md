@@ -54,14 +54,14 @@ On join, EmpireBan checks the connecting player's IP against currently banned pl
 <summary><b>Click to expand the full config.yml</b></summary>
 
 ```yaml
-# EmpireBan - Konfiguration
-# Zeiten in diesem Plugin werden intern immer in Sekunden gespeichert.
-# Beispiele: 1 Tag = 86400, 1 Jahr = 31536000, -1 = Permanent
+# EmpireBan - Configuration
+# Time values in this plugin are always stored internally in seconds.
+# Examples: 1 day = 86400, 1 year = 31536000, -1 = permanent
 
-language: german
+language: english
 
 database:
-  # sqlite oder mysql
+  # sqlite or mysql
   type: sqlite
   mysql:
     host: localhost
@@ -71,14 +71,14 @@ database:
     password: ''
 
 ip-handling:
-  # Wenn aktiviert werden Spieler mit einer IP eines gebannten Spielers automatisch gebannt.
-  # Wenn deaktiviert wird nur das Team benachrichtigt (siehe notify-staff & Berechtigung bansys.notify).
+  # If enabled, players sharing an IP with a banned player are automatically banned too.
+  # If disabled, only the staff team is notified (see notify-staff & the bansys.notify permission).
   autoban: false
   notify-staff: true
 
 vpn-check:
   enabled: false
-  # Kostenloser Key ab 100 Joins/Tag benötigt: https://vpnapi.io/
+  # Free key required above 100 joins/day: https://vpnapi.io/
   api-key: ''
   autoban: false
 
@@ -95,17 +95,15 @@ chat-delay:
 geyser:
   support: true
 
-# Ab Minecraft 1.19.1 signieren Clients Chatnachrichten. BungeeCord kann signierte Nachrichten
-# nicht selbst abfangen/canceln - dafür muss auf jedem Unterserver zusätzlich die beiliegende
-# "BanSystem-SpigotChatAdapter" installiert werden, welche Chat-Events an den Proxy weiterreicht.
+# From Minecraft 1.19.1 on, clients sign their chat messages. BungeeCord can't intercept or
+# cancel signed messages on its own - each backend server additionally needs the included
+# "BanSystem-SpigotChatAdapter" installed, which forwards chat events to the proxy.
 signed-chat-bypass: true
 ```
 
 </details>
 
-`ids.yml` holds the configurable escalation-ID system, and `messages_german.yml` holds every player- and staff-facing message (color codes via `&`, placeholders). Both are copied into the data folder from the JAR on first start.
-
-> **Note:** EmpireBan currently ships with German player-facing messages only (`messages_german.yml`). The structure supports additional `messages_<language>.yml` files, but only German is included out of the box.
+`ids.yml` holds the configurable escalation-ID system, and `messages_english.yml` holds every player- and staff-facing message (color codes via `&`, placeholders). Both are copied into the data folder from the JAR on first start. The structure supports additional `messages_<language>.yml` files if you want to translate the player-facing messages.
 
 Durations are always stored internally in **seconds**: 1 day = `86400`, 1 year = `31536000`, `-1` = permanent. Commands additionally accept shorthand like `1d12h`, `30m`, `perm`.
 
@@ -148,14 +146,13 @@ Durations are always stored internally in **seconds**: 1 day = `86400`, 1 year =
 - No GUI menu for the ban list — command-driven only.
 - Signed chat (Minecraft 1.19.1+) can't be intercepted by BungeeCord/Velocity on their own — that needs the companion Spigot chat adapter on each backend server (`config.yml: signed-chat-bypass`), which isn't bundled yet.
 - Geyser support is limited to the `geyser.support` config flag; no native Geyser-specific behavior beyond that.
-- Only German is shipped as a message language (structure supports more, see above).
 
 ---
 
 ## 🚀 Getting Started
 
 1. Drop `EmpireBan.jar` into your `plugins/` folder — **only on the proxy** (Velocity/BungeeCord) if you run one, otherwise on the Spigot server.
-2. Start the server once to generate `config.yml`, `ids.yml`, and `messages_german.yml`.
+2. Start the server once to generate `config.yml`, `ids.yml`, and `messages_english.yml`.
 3. Set your database (SQLite by default, or MySQL) and enable VPN checking if you want it.
 4. Reload with `/bansystem reload` — no restart needed.
 

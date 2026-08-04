@@ -31,7 +31,7 @@ public class LogRepository {
             statement.setLong(6, System.currentTimeMillis());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Log-Eintrag nicht speichern", e);
+            throw new IllegalStateException("Could not save log entry", e);
         }
     }
 
@@ -56,7 +56,7 @@ public class LogRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Logs nicht laden", e);
+            throw new IllegalStateException("Could not load logs", e);
         }
         return result;
     }
@@ -65,7 +65,7 @@ public class LogRepository {
         try (Connection connection = db.getConnection(); var statement = connection.createStatement()) {
             statement.execute("DELETE FROM eb_logs");
         } catch (SQLException e) {
-            throw new IllegalStateException("Konnte Logs nicht löschen", e);
+            throw new IllegalStateException("Could not delete logs", e);
         }
     }
 }

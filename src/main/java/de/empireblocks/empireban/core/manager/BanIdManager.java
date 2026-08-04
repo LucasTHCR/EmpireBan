@@ -135,13 +135,13 @@ public class BanIdManager {
                 return idLevel;
             }
         }
-        throw new IllegalArgumentException("Level " + level + " existiert nicht für ID '" + banId.getKey() + "'");
+        throw new IllegalArgumentException("Level " + level + " does not exist for ID '" + banId.getKey() + "'");
     }
 
     private BanId requireId(String key) {
         BanId banId = ids.get(key.toLowerCase());
         if (banId == null) {
-            throw new IllegalArgumentException("ID '" + key + "' existiert nicht");
+            throw new IllegalArgumentException("ID '" + key + "' does not exist");
         }
         return banId;
     }
